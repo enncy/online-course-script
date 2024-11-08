@@ -1504,6 +1504,7 @@ const JobRunner = {
 
 			const playFunction = async () => {
 				await waitForFaceRecognition();
+				await waitForNewFaceRecognition();
 				if (media.ended === false) {
 					await $.sleep(1000);
 					media.play();
@@ -1920,6 +1921,41 @@ async function readerAndFillHandle(searchInfos: SearchInformation[], list: HTMLE
 	}
 
 	return { finish: false };
+}
+
+/**
+ * 等待新版人脸识别，视频开头会出现的人脸识别
+ */
+function waitForNewFaceRecognition() {
+	let notified = false;
+
+	return new Promise<void>((resolve) => {
+		const interval = setInterval(() => {
+			// 人脸元素有时候 src 属性为空字符串，所以这里需要判断 src 是否为空字符串，如是则人脸识别会出现。
+			const faces = $$el<HTMLImageElement>('.chapterVideoFaceMaskDiv', top?.document);
+			let active = false;
+			for (const face of faces) {
+				if (face.style.display !== 'none') {
+					active = true;
+					break;
+				}
+			}
+			if (active) {
+				if (!notified) {
+					notified = true;
+					const msg = '检测到人脸识别，请手动进行识别后脚本才会继续运行。';
+					if (CXProject.scripts.study.cfg.notifyWhenHasFaceRecognition) {
+						CommonProject.scripts.settings.methods.notificationBySetting(msg, { duration: 0 });
+					}
+					$message.warn({ content: msg, duration: 0 });
+					$console.warn(msg);
+				}
+			} else {
+				clearInterval(interval);
+				resolve();
+			}
+		}, 3000);
+	});
 }
 
 /**
