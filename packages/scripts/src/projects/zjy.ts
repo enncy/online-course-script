@@ -23,15 +23,23 @@ const work_pages: [string, string][] = [
 	['资源库keep作业页面', 'study/spockeepTest'],
 	['资源库job作业页面', '/study/spocjobTest'],
 	['作业页面', 'icve-study/coursePreview/jobTes'],
-	['考试页面', 'icve-study/coursePreview/test']
+	['考试页面', 'icve-study/coursePreview/test'],
+	['资源库测验页面', 'icve-study/coursePreview/keepTest']
 ];
 
-const isWork =
-	window.location.href.includes('icve-study/coursePreview/jobTes') ||
-	window.location.href.includes('study/spockeepTest') ||
-	window.location.href.includes('study/spocjobTest');
-const isExam =
-	window.location.href.includes('icve-study/coursePreview/test') || window.location.href.includes('study/spoctest');
+const isWork = () => {
+	return (
+		window.location.href.includes('icve-study/coursePreview/jobTes') ||
+		window.location.href.includes('icve-study/coursePreview/keepTest') ||
+		window.location.href.includes('study/spockeepTest') ||
+		window.location.href.includes('study/spocjobTest')
+	);
+};
+const isExam = () => {
+	return (
+		window.location.href.includes('icve-study/coursePreview/test') || window.location.href.includes('study/spoctest')
+	);
+};
 
 /**
  * 职教云网课
@@ -186,11 +194,11 @@ export const ZJYProject = Project.create({
 			methods() {
 				return {
 					main: async () => {
-						if (isWork || isExam) {
+						if (isWork() || isExam()) {
 							await waitForQuestions();
 
 							commonWork(this, {
-								workerProvider: (opt) => workOrExam(isWork ? 'work' : 'exam', opt)
+								workerProvider: (opt) => workOrExam(isWork() ? 'work' : 'exam', opt)
 							});
 						}
 					}
@@ -411,7 +419,7 @@ function getCourseInfo(id: string) {
 	return fetch('https://zyk.icve.com.cn/prod-api/teacher/courseContent/' + id, {
 		headers: {
 			accept: 'application/json, text/plain, */*',
-			authorization: 'Bearer ' + document.cookie.match(/Token=([^;]+)/)?.[1] ?? ''
+			authorization: 'Bearer ' + (document.cookie.match(/Token=([^;]+)/)?.[1] ?? '')
 		},
 		method: 'GET'
 	}).then((res) => res.json());
