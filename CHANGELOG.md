@@ -1,3 +1,7 @@
+## [4.9.41](https://github.com/ocsjs/ocsjs/compare/4.9.40...4.9.41) (2024-12-03)
+
+
+
 ## [4.9.40](https://github.com/ocsjs/ocsjs/compare/4.9.39...4.9.40) (2024-11-10)
 
 
