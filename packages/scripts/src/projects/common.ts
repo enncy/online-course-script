@@ -204,6 +204,7 @@ export const CommonProject = Project.create({
 											'，并同意浏览器上方的剪贴板读取申请。'
 										])
 									],
+									['如果想添加多个不同的题库配置，请在每个配置之间使用三个井号隔开: ###。'],
 									...(aw.length ? [list] : [])
 								]),
 								footer: h('div', { style: { width: '100%' } }, [
@@ -306,7 +307,13 @@ export const CommonProject = Project.create({
 																	handler: "return (res)=>res.answer.allAnswer.map(i=>([res.question,i.join('#')]))"
 																});
 															} else {
-																awsResult.push(...(await AnswerWrapperParser.from(value)));
+																const contents = value
+																	.split('###')
+																	.map((i) => i.trim())
+																	.filter(Boolean);
+																for (const content of contents) {
+																	awsResult.push(...(await AnswerWrapperParser.from(content)));
+																}
 															}
 
 															if (awsResult.length) {
