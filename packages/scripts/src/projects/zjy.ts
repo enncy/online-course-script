@@ -21,9 +21,11 @@ const state = {
 const work_pages: [string, string][] = [
 	// 暂时不知道为什么资源库作业有两个不一样的链接
 	['资源库keep作业页面', 'study/spockeepTest'],
-	['资源库job作业页面', '/study/spocjobTest'],
+	['资源库job作业页面', 'study/spocjobTest'],
+	['资源库考试', 'study/spoctest'],
 	['作业页面', 'icve-study/coursePreview/jobTes'],
 	['考试页面', 'icve-study/coursePreview/test'],
+	['考试页面', 'icve-study/test'],
 	['资源库测验页面', 'icve-study/coursePreview/keepTest']
 ];
 
@@ -37,7 +39,9 @@ const isWork = () => {
 };
 const isExam = () => {
 	return (
-		window.location.href.includes('icve-study/coursePreview/test') || window.location.href.includes('study/spoctest')
+		window.location.href.includes('icve-study/coursePreview/test') ||
+		window.location.href.includes('icve-study/test') ||
+		window.location.href.includes('study/spoctest')
 	);
 };
 
