@@ -913,7 +913,10 @@ function gxkWorkAndExam(
 		const div = h('div');
 
 		div.innerHTML = allExamParts[index]?.name || '题目读取失败';
-		return removeRedundantWords(optimizationElementWithImage(div).innerText || '', redundanceWordsText.split('\n'));
+		return removeRedundantWords(
+			optimizationElementWithImage(div, true).innerText || '',
+			redundanceWordsText.split('\n')
+		);
 	};
 	let request_index = 0;
 	/** 新建答题器 */

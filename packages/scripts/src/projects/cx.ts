@@ -646,7 +646,7 @@ function workOrExam(
 					// 删除题型
 					childNodes[0].remove();
 					// 显示图片链接在题目中
-					return optimizationElementWithImage(titleCloneEl).innerText;
+					return optimizationElementWithImage(titleCloneEl, true).innerText;
 				}
 				return '';
 			})
@@ -1579,7 +1579,7 @@ const JobRunner = {
 
 		const chapterTestTaskQuestionTitleTransform = (titles: (HTMLElement | undefined)[]) => {
 			const transformed = StringUtils.of(
-				titles.map((t) => (t ? optimizationElementWithImage(t).innerText : '')).join(',')
+				titles.map((t) => (t ? optimizationElementWithImage(t, true).innerText : '')).join(',')
 			)
 				.nowrap(' ')
 				.nospace()

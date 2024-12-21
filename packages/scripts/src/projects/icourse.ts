@@ -398,7 +398,7 @@ function workAndExam(
 	const titleTransform = (titles: (HTMLElement | undefined)[]) => {
 		return removeRedundantWords(
 			titles
-				.map((t) => (t ? optimizationElementWithImage(t).innerText : ''))
+				.map((t) => (t ? optimizationElementWithImage(t, true).innerText : ''))
 				.filter((t) => t.trim() !== '')
 				.join(',')
 				// /\u200B/g 排除不可见的空格

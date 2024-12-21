@@ -159,8 +159,8 @@ export function createWorkerControl(options: {
  * 图片识别，将图片链接追加到 text 中
  * 返回一个克隆的节点
  */
-export function optimizationElementWithImage(root: HTMLElement): HTMLElement {
-	const clone = root.cloneNode(true) as HTMLElement;
+export function optimizationElementWithImage(root: HTMLElement, clone_node: boolean = false): HTMLElement {
+	const clone = clone_node ? (root.cloneNode(true) as HTMLElement) : root;
 	for (const img of Array.from(clone.querySelectorAll('img'))) {
 		const src = document.createElement('span');
 		src.innerText = img.src;
