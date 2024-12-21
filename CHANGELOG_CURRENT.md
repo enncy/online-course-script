@@ -1,9 +1,9 @@
-## [4.9.44](https://github.com/ocsjs/ocsjs/compare/4.9.43...4.9.44) (2024-12-21)
+## [4.9.45](https://github.com/ocsjs/ocsjs/compare/4.9.44...4.9.45) (2024-12-21)
 
 
 ### Bug Fixes
 
-* **core:** 修复图片题解析错误导致的URL重复，图片重复显示等问题 ([f5cc59f](https://github.com/ocsjs/ocsjs/commit/f5cc59f8e6a87a7144d0540f64a4a586594c78ef))
+* **script:** 修复上个版本图片链接处理导致的无法选择BUG ([baaed06](https://github.com/ocsjs/ocsjs/commit/baaed067f08f164821019c7b71287305f842b4d9))
 
 
 
