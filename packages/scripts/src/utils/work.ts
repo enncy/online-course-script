@@ -157,18 +157,18 @@ export function createWorkerControl(options: {
 
 /**
  * 图片识别，将图片链接追加到 text 中
+ * 返回一个克隆的节点
  */
-export function optimizationElementWithImage(root: HTMLElement) {
-	if (root) {
-		for (const img of Array.from(root.querySelectorAll('img'))) {
-			const src = document.createElement('span');
-			src.innerText = img.src;
-			// 隐藏图片，但不影响 innerText 的获取
-			src.style.fontSize = '0px';
-			img.after(src);
-		}
+export function optimizationElementWithImage(root: HTMLElement): HTMLElement {
+	const clone = root.cloneNode(true) as HTMLElement;
+	for (const img of Array.from(clone.querySelectorAll('img'))) {
+		const src = document.createElement('span');
+		src.innerText = img.src;
+		// 隐藏图片，但不影响 innerText 的获取
+		src.style.fontSize = '0px';
+		img.after(src);
 	}
-	return root;
+	return clone;
 }
 
 /**
